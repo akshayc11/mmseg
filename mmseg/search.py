@@ -135,4 +135,4 @@ def seg_txt_search(txt):
 
 if __name__ == "__main__":
     for i in word_len2("是：张无忌"):
-        print i
+        print(i)

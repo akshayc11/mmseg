@@ -30,5 +30,5 @@ for i in word_set:
     if do_print:
         i_len = len(i.decode("utf-8"))
         if not i_len>9:
-            print i_len, i
+            print(i_len, i)
 

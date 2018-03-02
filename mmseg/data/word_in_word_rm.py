@@ -34,7 +34,7 @@ with open(join(PREFIX,'words.dic')) as words:
     for line in words:
         word = line.strip().split(" ",1)[1].decode("utf-8")
         if word not in WORD2WORD:
-            print line.strip()
+            print(line.strip())
 
 #def word_min(word):
 #    if word not in WORD2WORD:

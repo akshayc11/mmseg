@@ -1,10 +1,9 @@
 #coding:utf-8
 
-
-
 import sys
+from importlib import reload
 reload(sys)
-sys.setdefaultencoding('utf-8')
+#sys.setdefaultencoding('utf-8')
 from  setuptools import   find_packages
 from distutils.core import Extension, setup
 setup(
@@ -13,11 +12,11 @@ setup(
     version='1.3.0',
     author_email='zsp007@gmail.com',
     packages=find_packages(),
-package_data={
-    'mmseg.data':[ '*.dic',], 
-    'mmseg.mmseg_cpp':[ 'mmseg_cpp/*.h' ],
+    package_data={
+        'mmseg.data':[ '*.dic',], 
+        'mmseg.mmseg_cpp':[ 'mmseg_cpp/*.h' ],
 },
-long_description="""
+    long_description="""
 MMseg中文分词 Chinese Segment On MMSeg Algorithm
 -------------------------------
 original edition
@@ -94,7 +93,7 @@ If you have interesting , have a look a the original edition
 
 from mmseg import seg_txt
 for i in seg_txt("最主要的更动是：张无忌最后没有选定自己的配偶。"):
-    print i
+    print(i)
 
 -------------------------------
 配合xapian做索引

@@ -18,4 +18,4 @@ if __name__ == "__main__":
     from collections import defaultdict
     word_count = defaultdict(int)
     for word in seg_txt(text):
-        print word,
+        print(word)
