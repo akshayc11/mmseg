@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+from builtins import object
 
-import sys
 from ctypes import *
 from os.path import join, dirname, abspath, exists
+import sys
 
 if sys.platform == 'win32':
     ext = 'dll'
@@ -104,14 +104,18 @@ def dict_load_words(path):
     return True
 
 def dict_load_defaults():
-    mmseg.mmseg_load_chars(join(dirname(__file__), 'data', 'chars.dic'))
-    mmseg.mmseg_load_words(join(dirname(__file__), 'data', 'words.dic'))
+    chars_dic_path = bytes(join(dirname(__file__), 'data', 'chars.dic'), 'utf-8', 'ignore')
+    mmseg.mmseg_load_chars(chars_dic_path)
+    
+    words_dic_path = bytes(join(dirname(__file__), 'data', 'words.dic'), 'utf-8', 'ignore')
+    mmseg.mmseg_load_words(words_dic_path)
 
 class Algorithm(object):
     def __init__(self, text):
         """\
         Create an Algorithm instance to segment text.
         """
+        text = bytes(text, 'utf-8', 'ignore')
         self.algor = mmseg.mmseg_algor_create(text, len(text))
         self.destroied = False
 

@@ -1,21 +1,15 @@
-#coding:utf-8
-
-import sys
-from importlib import reload
-reload(sys)
-#sys.setdefaultencoding('utf-8')
-from  setuptools import   find_packages
+from setuptools import find_packages
 from distutils.core import Extension, setup
 setup(
-    name='mmseg',
+    name='inphommseg',
     description='MMseg中文分词 Chinese Segment On MMSeg Algorithm',
-    version='1.3.0',
+    version='1.4.0',
     author_email='zsp007@gmail.com',
     packages=find_packages(),
     package_data={
-        'mmseg.data':[ '*.dic',], 
-        'mmseg.mmseg_cpp':[ 'mmseg_cpp/*.h' ],
-},
+        'mmseg.data' : [ '*.dic',], 
+        'mmseg.mmseg_cpp' : [ 'mmseg_cpp/*.h' ]
+    },
     long_description="""
 MMseg中文分词 Chinese Segment On MMSeg Algorithm
 -------------------------------

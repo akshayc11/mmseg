@@ -1,7 +1,10 @@
-#coding:utf-8
+from __future__ import print_function
+from __future__ import absolute_import
 
-import _mmseg as mmseg
+
+import mmseg._mmseg as mmseg
 mmseg.dict_load_defaults()
+
 def seg_txt(text):
     if type(text) is str:
         algor = mmseg.Algorithm(text)

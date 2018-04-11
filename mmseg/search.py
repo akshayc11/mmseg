@@ -1,13 +1,19 @@
 #coding:utf-8
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import unicode_literals
+from builtins import range
+
 from collections import defaultdict
-from __init__ import seg_txt
-from word2 import WORD2
+
+from .__init__ import seg_txt
+from .word2 import WORD2
 
 SMALLCHAR = set(
-(u'很', u'则', u'该', u'次', u'给', u'又', u'里', u'号', u'着', u'名', u'可', u'更', u'由', u'下', u'至', u'或', u'多', u'大', u'新', u'并', u'让', u'她', u'已', u'向', u'其', u'股', u'点', u'们', u'所', u'会', u'要', u'于', u'前', u'来', u'万', u'比', u'只', u'及', u'地', u'队', u'个', u'不', u'说', u'第', u'元', u'人', u'一', u'分', u'被', u'我', u'这', u'到', u'都', u'从', u'等', u'时', u'以', u'上', u'后', u'就', u'将', u'而', u'还', u'他', u'但', u'对', u'也', u'与', u'为', u'中', u'年', u'月', u'日', u'有', u'和', u'是', u'在', u'了', u'的', )
+('很', '则', '该', '次', '给', '又', '里', '号', '着', '名', '可', '更', '由', '下', '至', '或', '多', '大', '新', '并', '让', '她', '已', '向', '其', '股', '点', '们', '所', '会', '要', '于', '前', '来', '万', '比', '只', '及', '地', '队', '个', '不', '说', '第', '元', '人', '一', '分', '被', '我', '这', '到', '都', '从', '等', '时', '以', '上', '后', '就', '将', '而', '还', '他', '但', '对', '也', '与', '为', '中', '年', '月', '日', '有', '和', '是', '在', '了', '的', )
 )
 
-STOPWORD = set(u"的了是在有而以但一我你他它个啊这")
+STOPWORD = set("的了是在有而以但一我你他它个啊这")
 
 def seg_txt2(txt):
     for i in seg_txt(txt):
@@ -17,7 +23,7 @@ def seg_txt2(txt):
         else:
             i = i.decode("utf-8","ignore")
             if len(i) == 1:
-                if u"一" <= i <= u"龥" and i not in STOPWORD:
+                if "一" <= i <= "龥" and i not in STOPWORD:
                     yield i
             else:
                 yield i 
@@ -29,17 +35,17 @@ def seg_txt_2_dict(txt):
     return result
 
 def word_len2(s):
-    tmp = [u""]
+    tmp = [""]
     for i in s:
-        if u"一" <= i <= u"龥" and i not in STOPWORD:
+        if "一" <= i <= "龥" and i not in STOPWORD:
             tmp[-1] += i
         elif tmp[-1]:
-            tmp.append(u"")
+            tmp.append("")
     result = []
     tmp_word = []
     for y in tmp:
         if y:
-            for i in xrange(len(y)-1):
+            for i in range(len(y)-1):
                 w = y[i:i+2]
                 if w in WORD2:
                   #  if len(tmp) >= 2:
@@ -84,13 +90,12 @@ def seg_title_search(txt):
     if len(buffer) > 1:
         result.extend(word_len2("".join(buffer)))
     elif buffer:
-        if u"一" <= buffer[0] <= u"龥":
+        if "一" <= buffer[0] <= "龥":
             if buffer[0] not in SMALLCHAR:
                 result.append(buffer[0])
 
 
-    result = [i.encode("utf-8", "ignore") if type(i) is unicode else i for i in result]
-#    txt = txt.decode("utf-8", "ignore")
+    result = [i.encode("utf-8", "ignore") if type(i) is str else i for i in result]
 
     return result
 
@@ -102,9 +107,9 @@ def seg_txt_search(txt):
     buffer = []
     def _():
         if len(buffer) > 1:
-            result.extend(word_len2(u"".join(buffer)))
+            result.extend(word_len2("".join(buffer)))
         elif buffer:
-            if u"一" <= buffer[0] <= u"龥":
+            if "一" <= buffer[0] <= "龥":
                 if buffer[0] not in SMALLCHAR:
                     result.append(buffer[0])
 
@@ -127,7 +132,7 @@ def seg_txt_search(txt):
 
     _()
 
-    result = [i.encode("utf-8", "ignore") if type(i) is unicode else i for i in result]
+    result = [i.encode("utf-8", "ignore") if type(i) is str else i for i in result]
 
     return result
 
@@ -135,4 +140,7 @@ def seg_txt_search(txt):
 
 if __name__ == "__main__":
     for i in word_len2("是：张无忌"):
+        print(i)
+
+    for i in word_len2("晋江文学网站驻站作家，已出版多部作品。"):
         print(i)
