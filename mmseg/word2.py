@@ -1,4 +1,4 @@
-#coding:utf-8
+# -*- coding: utf-8 -*-
 WORD2 = set((
 u'申论',
 u'饭否',

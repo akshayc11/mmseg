@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from builtins import object
+from builtins import bytes
 
 from ctypes import *
 from os.path import join, dirname, abspath, exists
