@@ -4,29 +4,33 @@ from builtins import bytes
 
 from ctypes import *
 from os.path import join, dirname, abspath, exists
+from os import listdir
 import sys
 
-if sys.platform == 'win32':
-    ext = 'dll'
-else:
-    ext = 'so'
+def _get_mmseg_lib_path():
+    if sys.platform == 'win32':
+        ext = 'dll'
+    else:
+        ext = 'so'
+    possible_location = abspath(join(dirname(__file__), '..'))
+    possible_mmseg_lib_paths = [
+        x for x in listdir(possible_location)
+        if 'mmseg' in x and x.endswith(ext)
+    ]
+    if len(possible_mmseg_lib_paths) > 0:
+        return join(possible_location, possible_mmseg_lib_paths[0])
+    
+    possible_location = abspath(join(dirname(__file__), 'mmseg_cpp'))
+    possible_mmseg_lib_paths = [
+        x for x in listdir(possible_location)
+        if 'mmseg' in x and x.endswith(ext)
+    ]
+    if len(possible_mmseg_lib_paths) > 0:
+        return join(possible_location, possible_mmseg_lib_paths[0])
+    raise FileNotFoundError('Unable to find mmseg_lib_path')
 
-mmseg_lib_path = abspath(
-    join(
-    dirname(__file__),
-    '..',
-    'mmseg.%s' % ext
-    )
-)
-if not exists(mmseg_lib_path):
-    mmseg_lib_path = abspath(
-        join(
-        dirname(__file__),
-        'mmseg_cpp',
-        'mmseg.%s' % ext
-        )
-    )
-        
+mmseg_lib_path = _get_mmseg_lib_path()
+
 mmseg = cdll.LoadLibrary(mmseg_lib_path)
 
 ########################################
